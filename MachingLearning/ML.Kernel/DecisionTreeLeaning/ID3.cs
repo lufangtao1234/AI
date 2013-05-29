@@ -45,6 +45,7 @@ namespace ML.Kernel.DecisionTreeLeaning
             _PositiveExample = positiveExample;
             _NegativeExample = negativeExample;
 
+            //检查是否目标为一类
             if (IsSameClass(dataTable) == true)
                 return new Tree(new Attribute(dataTable.Rows[0][_Goal].ToString()));
 
@@ -83,7 +84,41 @@ namespace ML.Kernel.DecisionTreeLeaning
             valueList = bestSplittingAttribute.GetAttributeValues();
             for (int i = 0; i < valueList.Count; i++)
             {
-                
+                dtCopy.Rows.Clear();
+                //选出属性值对应的元组数据
+                DataRow[] rows = dataTable.Select(bestSplittingAttribute.GetAttributeName() + " = " + "'" + valueList[i].ToString() + "'");
+                //将选出的数据拷贝到dt的副本里
+                foreach (DataRow row in rows)
+                    dtCopy.Rows.Add(row.ItemArray);
+                ArrayList attributeListCopy = new ArrayList(attributes.Length - 1);
+                for (int j = 0; j < attributes.Length; j++)
+                    if (attributes[j].GetAttributeName() != bestSplittingAttribute.GetAttributeName())
+                        attributeListCopy.Add(attributes[j]);
+
+                if (dtCopy.Rows.Count == 0)
+                {
+                    int yes = 0;
+                    int no = 0;
+                    for (int k = 0; k < dataTable.Rows.Count; k++)
+                    {
+                        if (dataTable.Rows[k][_Goal].ToString() == _PositiveExample)
+                            yes++;
+                        if (dataTable.Rows[k][_Goal].ToString() == _NegativeExample)
+                            no++;
+                    }
+
+                    if (yes > no)
+                        return new Tree(new Attribute(_NegativeExample));
+                    else
+                        return new Tree(new Attribute(_PositiveExample));
+
+                }
+                else
+                {
+                    ID3 id3 = new ID3();
+                    Tree child = id3.GenerateDecisionTree(dtCopy, (Attribute[])attributeListCopy.ToArray(typeof(Attribute)), _Goal, _PositiveExample, _NegativeExample);
+                    root.AddNode(child, valueList[i].ToString());
+                }
             }
 
             return root;
