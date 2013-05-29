@@ -76,10 +76,11 @@ namespace ML.Kernel.DecisionTreeLeaning
             _EntropyTotal = CaluteEntropy(_PositiveExampleCount, _NegativeExampleCount);
 
             Attribute bestSplittingAttribute = AttributeSelectionMethod(dataTable, attributes);
-
+           
             Tree root = new Tree(bestSplittingAttribute);
             DataTable dtCopy = dataTable.Clone();
-
+            if (bestSplittingAttribute == null)
+                return root;
             ArrayList valueList = new ArrayList();
             valueList = bestSplittingAttribute.GetAttributeValues();
             for (int i = 0; i < valueList.Count; i++)

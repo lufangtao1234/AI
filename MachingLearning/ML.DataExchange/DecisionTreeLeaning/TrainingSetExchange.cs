@@ -80,6 +80,7 @@ namespace ML.DataExchange.DecisionTreeLeaning
 
                 sw.WriteLine(content);
             }
+            sw.Close();
 
         }
     }
