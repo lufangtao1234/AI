@@ -17,11 +17,11 @@ namespace ML.Kernel.DecisionTreeLeaning
         private string _Goal;
         //正例
         private string _PositiveExample;
-        //反例
+        //反例 
         private string _NegativeExample;
         //训练集
         private DataTable _TrainingSet;
-        //训练集数据个数
+        //训练集数据个数 
         private int _TotalTraningSetCount = 0;
         //正例个数
         private int _PositiveExampleCount = 0;
@@ -30,6 +30,15 @@ namespace ML.Kernel.DecisionTreeLeaning
         //训练集的总熵
         private double _EntropyTotal;
 
+        /// <summary>
+        /// 由ID3算法生成决策树
+        /// </summary>
+        /// <param name="dataTable">训练集</param>
+        /// <param name="attributes">属性集合</param>
+        /// <param name="goal">目标值</param>
+        /// <param name="positiveExample">正例目标值</param>
+        /// <param name="negativeExample">反例目标值</param>
+        /// <returns></returns>
         public Tree GenerateDecisionTree(DataTable dataTable, Attribute[] attributes, string goal, string positiveExample, string negativeExample)
         {
             _Goal = goal;
