@@ -16,9 +16,9 @@ namespace ML.Kernel.DecisionTreeLeaning
         //目标值
         private string _Goal;
         //正例
-        private string _PositiveExample;
+        private static string _PositiveExample;
         //反例 
-        private string _NegativeExample;
+        private static string _NegativeExample;
         //训练集
         private DataTable _TrainingSet;
         //训练集数据个数 
@@ -264,6 +264,41 @@ namespace ML.Kernel.DecisionTreeLeaning
             if ((positiveExampleCount == sum) || (negativeExampleCount == sum))
                 flag = true;
             return flag;
+        }
+
+        /// <summary>
+        /// 利用决策树做判断
+        /// </summary>
+        /// <param name="root">决策树</param>
+        /// <param name="searchStr">决策数组</param>
+        /// <returns></returns>
+        public static string Decison(Tree root, string[] searchStr)
+        {
+
+            if (root.GetAttribute().GetAttributeValues() != null)
+            {
+                for (int i = 0; i < root.GetAttribute().GetAttributeValues().Count; i++)
+                {
+                    for (int j = 0; j < searchStr.Length; j++)
+                    {
+                        if (root.GetAttribute().GetAttributeValues()[i].ToString().ToUpper() == searchStr[j].ToString().ToUpper())
+                        {
+                            Tree childNode = root.GetChild(root.GetAttribute().GetAttributeValues()[i].ToString());
+
+                            if ((childNode.GetAttribute().GetAttributeName().ToString() == _NegativeExample) || (childNode.GetAttribute().GetAttributeName().ToString() == _PositiveExample))
+                            {
+                                if (childNode.GetAttribute().GetAttributeName() == _PositiveExample)
+                                    return _PositiveExample;
+                                else
+                                    return _NegativeExample;
+                            }
+                            else
+                                return Decison(childNode, searchStr);
+                        }
+                    }
+                }
+            }
+            return _NegativeExample;
         }
     }
 }
