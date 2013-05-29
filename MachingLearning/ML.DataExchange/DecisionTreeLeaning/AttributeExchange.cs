@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,40 @@ namespace ML.DataExchange.DecisionTreeLeaning
                 }
             }
             return attributes;
+        }
+        /// <summary>
+        /// 生成属性文件
+        /// </summary>
+        /// <param name="attributes">属性值</param>
+        /// <param name="filePath">存储路径</param>
+        public static void SetAttributes(Dictionary<string, List<string>> attributes, string filePath)
+        {
+            if (attributes == null || attributes.Keys.Count == 0)
+                return;
+
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            StreamWriter sw = File.CreateText(filePath);
+            sw.WriteLine("<Attributes></Attributes>");
+            sw.Close();
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(filePath);
+            XmlNode root = xmlDoc.SelectSingleNode("Attributes");
+            foreach (var key in attributes.Keys)
+            {
+                XmlElement xe1 = xmlDoc.CreateElement("Attribute");
+                xe1.SetAttribute("Key", key);
+                if (attributes[key] == null || attributes[key].Count == 0)
+                    continue;
+                foreach (var value in attributes[key])
+                {
+                    XmlElement xe11 = xmlDoc.CreateElement("Value");
+                    xe11.InnerText = value;
+                    xe1.AppendChild(xe11);
+                }
+                root.AppendChild(xe1);
+            }
+            xmlDoc.Save(filePath);
         }
     }
 }

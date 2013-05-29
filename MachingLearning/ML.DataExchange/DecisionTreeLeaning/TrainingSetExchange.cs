@@ -51,5 +51,36 @@ namespace ML.DataExchange.DecisionTreeLeaning
             }
             return dataTable;
         }
+
+        /// <summary>
+        /// 生成训练集
+        /// </summary>
+        /// <param name="trainingSets">训练集数据（对应到属性）</param>
+        /// <param name="filePath">文件路径</param>
+        public static void SetTrainingSet(List<List<string>> trainingSets, string filePath)
+        {
+            if (trainingSets == null || trainingSets.Count == 0)
+                return;
+
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            StreamWriter sw = File.CreateText(filePath);
+            foreach (var trainingSet in trainingSets)
+            {
+                if (trainingSet == null || trainingSet.Count == 0)
+                    continue;
+                string content = "";
+                for (int i = 0; i < trainingSet.Count; i++)
+                {
+                    if (i == trainingSet.Count - 1)
+                        content += trainingSet[i];
+                    else
+                        content += trainingSet[i] + ",";
+                }
+
+                sw.WriteLine(content);
+            }
+
+        }
     }
 }
