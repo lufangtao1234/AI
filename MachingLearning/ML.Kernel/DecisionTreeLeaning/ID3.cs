@@ -197,9 +197,9 @@ namespace ML.Kernel.DecisionTreeLeaning
                 if (row[attribute.GetAttributeName()].ToString() == value)
                 {
                     if (row[_Goal].ToString() == _NegativeExample)
-                        postiveExampleCount++;
-                    else
                         negativeExampleCount++;
+                    else
+                        postiveExampleCount++;
                 }
             }
         }
