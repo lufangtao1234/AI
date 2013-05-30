@@ -16,7 +16,8 @@ namespace ML.Kernel.DecisionTreeLeaning
         private string _AttributeName;
         //属性值
         private ArrayList _AttributeValues;
-
+        //是否为连续值
+        private bool _IsContinuous = false;
         /// <summary>
         /// 构造属性
         /// </summary>
@@ -26,6 +27,7 @@ namespace ML.Kernel.DecisionTreeLeaning
             _AttributeName = name;
             _AttributeValues = null;
         }
+
 
         /// <summary>
         /// 构造属性
@@ -38,6 +40,18 @@ namespace ML.Kernel.DecisionTreeLeaning
             _AttributeValues = new ArrayList(values);
         }
 
+        /// <summary>
+        /// 构造属性
+        /// </summary>
+        /// <param name="name">属性名</param>
+        /// <param name="values">属性值</param>
+        /// <param name="IsContinuous">是否为连续</param>
+        public Attribute(string name, string[] values, bool isContinuous)
+        {
+            _AttributeName = name;
+            _AttributeValues = new ArrayList(values);
+            _IsContinuous = isContinuous;
+        }
         /// <summary>
         /// 获得属性名称
         /// </summary>

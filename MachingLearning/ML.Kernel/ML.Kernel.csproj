@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecisionTreeLeaning\Attribute.cs" />
+    <Compile Include="DecisionTreeLeaning\C45.cs" />
+    <Compile Include="DecisionTreeLeaning\DecisionTree.cs" />
     <Compile Include="DecisionTreeLeaning\ID3.cs" />
     <Compile Include="DecisionTreeLeaning\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
