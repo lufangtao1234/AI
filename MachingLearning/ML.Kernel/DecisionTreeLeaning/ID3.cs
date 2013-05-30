@@ -186,10 +186,6 @@ namespace ML.Kernel.DecisionTreeLeaning
                 }
             }
         }
-      
-
-      
-
 
         /// <summary>
         /// 利用决策树做判断

@@ -30,6 +30,7 @@ namespace ML.Kernel.DecisionTreeLeaning
         protected double _EntropyTotal;
         //属性值
         protected Attribute[] _Attributes;
+
         /// <summary>
         /// 检查训练集是否属于同一类
         /// </summary>

@@ -28,7 +28,6 @@ namespace ML.Kernel.DecisionTreeLeaning
             _AttributeValues = null;
         }
 
-
         /// <summary>
         /// 构造属性
         /// </summary>
@@ -61,6 +60,14 @@ namespace ML.Kernel.DecisionTreeLeaning
             return _AttributeName;
         }
 
+        /// <summary>
+        /// 获得是否为连续属性值
+        /// </summary>
+        /// <returns></returns>
+        public bool GetIsContinuous()
+        {
+            return _IsContinuous;
+        }
         /// <summary>
         /// 获得属性值
         /// </summary>

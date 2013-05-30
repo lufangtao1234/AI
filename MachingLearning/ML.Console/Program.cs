@@ -105,7 +105,6 @@ namespace ML.Console
             //a["1"] = new List<string> { "11", "12" };
             //a["2"] = new List<string> { "21", "22" };
             //AttributeExchange.SetAttributes(a, @"D:\3.xml");
-            System.Console.ReadKey();
         }
     }
 }
